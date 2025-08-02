@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-// 스프링 관련 어노테이션이 전혀 필요 없습니다!
 @DisplayName("Account 도메인 로직 테스트")
 class AccountTest {
 
