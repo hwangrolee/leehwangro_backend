@@ -46,5 +46,3 @@ docker-compose --env-file .env.development up --build -d
 ```commandline
 ./gradlew test
 ```
-
-### 유닛 테스트
