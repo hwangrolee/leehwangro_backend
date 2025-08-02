@@ -1,0 +1,83 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+springdoc:
+  # 1. API 문서의 기본 경로 설정 (선택 사항)
+  # 기본값은 /v3/api-docs 입니다. 변경하고 싶을 때만 사용하세요.
+  api-docs:
+    path: /api-docs
+
+  # 2. Swagger UI의 경로 설정 (선택 사항)
+  # 기본값은 /swagger-ui.html 입니다.
+  swagger-ui:
+    path: /swagger-ui.html
+
+  # 3. API 문서의 전역 정보 설정 (강력 추천)
+  info:
+    title: "My Project API"
+    description: "이 프로젝트에서 제공하는 REST API 명세서입니다."
+    version: "v1.0.0"
+    contact:
+      name: "Your Name"
+      email: "your.email@example.com"
+      url: "https://your.website.com"
+    license:
+      name: "Apache 2.0"
+      url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  servers:
+    - url: http://localhost:8080
+      description: Local Development Server
+    - url: https://dev.example.com
+      description: Development Server
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3307/wirebarley_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: wirebarley
+    password: 4eDWuwwbaHCAL669SDti9OPF
+  jpa:
+    hibernate:
+      # 서버 실행 시 도메인에서 변경된 사항만 수정하도록 설정
+      ddl-auto: update
+#      ddl-auto: 'create-drop'
+    # JPA가 실행하는 SQL 쿼리를 콘솔에 보여줄지 여부
+    show-sql: true
+    properties:
+      hibernate:
+        # SQL 쿼리를 보기 좋게 정렬(pretty-printing)할지 여부
+        format_sql: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    hibernate:
+      # 서버 실행 시 도메인과 디비 변경사항이 동일한지 확인
+      # 실제 배포시에는 validate 으로 설정해서 도메인 확인 필요.
+      ddl-auto: validate
+
+      # 서버 실행 시 도메인 변경된 경우 디비 테이블 변경
+      # ddl-auto: update
+
+      # 서버 실행 시 기존 테이블 드랍 후 다시 생성
+      # ddl-auto: 'create-drop'
+
+    # JPA가 실행하는 SQL 쿼리를 콘솔에 보여줄지 여부
+    show-sql: false
+    properties:
+      hibernate:
+        # SQL 쿼리를 보기 좋게 정렬(pretty-printing)할지 여부
+        format_sql: false
